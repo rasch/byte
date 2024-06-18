@@ -1,0 +1,38 @@
+name: PCB
+on:
+  push:
+    tags:
+    - 'v*.*.*'
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    container:
+      image: kicad/kicad:8.0
+      options: --user root
+      env:
+        KICAD_CONFIG_HOME: /home/kicad/.config/kicad
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        run: |
+          ./run pcb
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body: |
+            For the DIYers that want to build a [Byte keyboard](https://github.com/rasch/byte).
+
+            - plot.zip .............. gerber and drill files
+            - bom.csv ............... bill of materials
+            - cpl.csv ............... component placement list
+            - ibom.html ............. interactive BOM/CPL
+            - byte_left.bin ......... firmware for left-handed artsey.io
+            - byte_right.bin ........ firmware for right-handed artsey.io
+          files: |
+            dist/plot.zip
+            dist/bom.csv
+            dist/cpl.csv
+            dist/ibom.html

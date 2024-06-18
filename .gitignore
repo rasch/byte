@@ -1,0 +1,5 @@
+dist
+pcb/*-backups
+pcb/*.kicad_prl
+pcb/*.lck
+pcb/fp-info-cache
