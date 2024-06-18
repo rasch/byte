@@ -20,5 +20,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            dist/phalanx_left.bin
-            dist/phalanx_right.bin
+            dist/byte_left.bin
+            dist/byte_right.bin
